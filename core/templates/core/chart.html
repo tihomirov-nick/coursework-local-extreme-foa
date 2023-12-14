@@ -1,0 +1,57 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="row justify-content-center">
+
+    <div class="col-md-6 text-center">
+
+      <form method="post" action="{% url 'chart' %}" class="form-inline">
+
+        <div class="form-group">
+
+          {% csrf_token %}
+
+          {{ form.as_p }}
+
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block bg-light text-dark">Создать график</button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+{% if chart and not func_error %}
+
+<div class="row justify-content-center">
+
+  <div class="col-md-12">
+
+    <div class="chart-container rounded shadow bg-dark p-10">
+
+      {{ chart|safe }}
+
+    </div>
+
+  </div>
+
+</div>
+
+{% elif func_error %}
+
+<center>
+
+  <h3 style="color: rgb(20, 173, 220);">Есть ошибка в функции, проверь!</h3>
+
+</center>
+
+{% endif %}
+
+{% endblock content %}
